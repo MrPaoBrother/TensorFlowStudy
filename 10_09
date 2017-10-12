@@ -1,0 +1,123 @@
+基于TensorFLow的NN
+
+1 用张量表示数据，用计算图搭建NN
+2 用会话执行计算图，优化线上的权重(参数)
+得到模型
+
+
+
+张量:Tensor
+     多维数据(列表)
+阶(张量的维数)
+	阶
+	0 变量 s=123
+	1 向量 v=[1,2,3]
+	2 矩阵 m=[[1,2,3][2,3,4][4,5,6]]
+	3 三阶矩阵... t = [[[...
+	4 ...
+
+
+
+计算图
+1 用来搭建NN
+2 只搭建 不计算...
+
+import tensorflow as tf (计算图)
+x = tf.constant()------------->具体查看Tensorflow中的ten_1.py
+
+
+会话  Session(执行计算图中的节点运算...)
+参数: 线上的权重W 用变量表示...给一个随机生成的值
+w = tf.variable(tf.random)    #随机生成一个矩阵...一系列没听清...
+
+
+NN的过程..
+1 抽取实体特征作为输入,喂给神经网络(NN)
+2 定义NN的结构，从输入到输出的(先搭计算图再用会话执行==>看有几个session) 
+note: 整个过程是神经网络的前向传播
+3 大量的特征数据喂给神经网络，迭代优化参数 (这个过程就是神经网络的反向传播，也就是训练模型...)
+4 使用模型预测(应用)
+
+
+例子
+
+x1 长度 x2 重量  >0 合格
+输入     隐藏层     输出
+
+
+训练NN模型:(反向传播)
+    在所有参数上用梯度下降，使神经网络模型在训练数据上损失函数最小
+损失函数:
+    Loss(预测的y和已知答案y_的差)
+    ------>1 交叉熵cross_entropy 公式 http://blog.csdn.net/lanchunhui/article/details/61413557
+	         cross_entropy = -tf.reduce_mean(tf.reduce_sum(y_*tf.log(y), reduce_indices=[1]))
+
+2 均方误差 MSE(y,y_)
+MSE1 = tf.reduce_mean(tf.square(y1-y_))......
+3 自定义...
+
+学习率:
+learning_rate 每次参数更新的幅度...
+	公式...(更新后 = 更新前 -学习率* 损失函数的梯度)
+		 
+
+
+1初始化参数
+2训练次数
+3选一小撮数据(batch)
+4前向传播 获得预测值
+5反向传播 更新参数
+1-5循环运算，判断次数到没有，判断目标到了没(用损失函数去判断目标到了没)
+
+例子:
+
+训练模型 判断零件合格否,长度+重量<1 合格
+	准备工作import tensorflow as tf
+		import randomstate
+		生成数据集 128组 长 重 数组 X , Y
+	定义网络结构前向传播
+		W1 = 随机数
+		W2 = 
+		x = placeholder seed给他
+		y_ = 与x对应一一映射 (这个是标准答案)
+		a = 
+		y = 	
+	定义网络结构损失函数 反向传播
+		cross_entropy = ..  train_step=
+	生成会话，训练step轮  with tf.Session() as sess:
+				op = tf.初始化函数(把相关的变量初始化)
+				sess.run(op)
+	
+	循环训练参数:
+			      for i in range...
+				sess.run  (每运行一次以字典的形式...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+
+
+
+
+
+
